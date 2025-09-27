@@ -50,7 +50,7 @@ app.post('/api/twilio/call', async (req, res) => {
     // Make the call using Twilio
     const call = await twilioClient.calls.create({
       // TwiML URL for instructions once the developer answers
-      url: `https://c2fce35b1f6e.ngrok-free.app/api/twilio/voice?context=${userId || 'general-alert'}`, 
+      url: `https://twilioserveri.vercel.app/api/twilio/voice?context=${userId || 'general-alert'}`, 
       to: formattedNumber,
       from: TWILIO_NUMBER
     });
