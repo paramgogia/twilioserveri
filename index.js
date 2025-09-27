@@ -31,11 +31,12 @@ const allowedOrigins = ['http://localhost:3000'];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // The 'origin' is the URL of the frontend making the request
-    // We allow the request if the origin is in our allowed list
+    console.log('CORS CHECK - Incoming request from origin:', origin); // <-- ADD THIS
     if (!origin || allowedOrigins.includes(origin)) {
+      console.log('CORS CHECK: Access allowed.'); // <-- ADD THIS
       callback(null, true);
     } else {
+      console.log('CORS CHECK: Access blocked.'); // <-- ADD THIS
       callback(new Error('Not allowed by CORS'));
     }
   },
