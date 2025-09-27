@@ -23,8 +23,28 @@ if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_NUMBER) {
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 // Setup Express
+// Setup Express
 const app = express();
-app.use(cors()); // Allow cross-origin requests from your frontend
+
+// --- Specific CORS Configuration for localhost:3000 ---
+const allowedOrigins = ['http://localhost:3000'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // The 'origin' is the URL of the frontend making the request
+    // We allow the request if the origin is in our allowed list
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// Use the new CORS options
+app.use(cors(corsOptions));
+
+// Continue with your other middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
